@@ -62,3 +62,9 @@ Aloop就是identity matrix。
 计算的时候就是GAT自适应学习，然后element-addition就行～那么我们这里设置的K=3.
 
 ![](Multiorder.png)
+
+# 3. Learning Multi-Granular Hypergraphs for Video-Based Person Re-id
+### introduction介绍方式
+this work aims to .In this sense.
+
+对于person re-id而言，multi-granular的spatial relation和multi-granular 的temporal relation都是十分重要的～
