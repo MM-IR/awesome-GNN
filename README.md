@@ -68,3 +68,48 @@ Aloop就是identity matrix。
 this work aims to .In this sense.
 
 对于person re-id而言，multi-granular的spatial relation和multi-granular 的temporal relation都是十分重要的～
+
+# 4. Sentence Specified Dynamic Video Thumbnail Generation
+Video Thumbnail 就是和视频摘要差不多～
+
+Video Thumbnail Generation就是产生video content preview预演，这个对于影响users' online searching experiences~
+
+这里就是提出一个新任务。不仅是生成Video Summarization还要针对用户的个人兴趣来自动生成～（多模态）
+## 1.Motivation:
+1.传统的video thumbnail仅仅只是利用了视觉特征@video，而没有user的搜索意图不能提供一个有意义的snapshot简介 of the video contents that users concern.
+
+2.我们提出的模型GTP就是利用sentence specified video graph convolutional network@建模both 句子-视频 语义interaction以及内部的视频关系@结合sentence information。（基于temporal conditioned pointer network）（就是一种graph之前做了一个匹配的操作～）
+
+# 5. Temporal Dynamic Graph LSTM for Action-driven Video Object Detection@TD-GraphLSTM
+
+# 6. Object-Aware Multi-Branch Relation Networks for Spatio-Temporal Video Grounding
+## 1.Motivation
+1.许多现有的Grounding work都是局限于well-aligned segment-sentence pairs～那么我们的工作就是unaligned data and multi-form sentences.
+
+2.这个任务就是需要capture重要的object relations去identify the queried target.
+
+3.但是现有的办法无法区分出notable objects以及关系建模还不是那么有效@针对不重要的对象～
+
+## 2.我们的Contributions@我们提出一个创新性的object-aware multi-branch relation network@object-aware relation discovery.
+1.我们就是设计了multiple branches去发展object-aware region modeling（每个branch都关注一个crucial object in 句子）
+
+2.然后我们就是提出一个multi-branch relation reasoning去捕捉关键object 关系@main branch以及附属branches～
+
+3.除此以外，我们使用了一个diversity loss去确保每个branch只关注自己应该关注的corresponding objects。
+
+# 7.Zero-Shot Video Object Segmentation via Attentive Graph Neural Networks
+这里就是一个全连接图，然后relations between 绝对frame pairs作为边～
+
+这个潜在的对关系就是使用注意力机制来进行迭代更新
+
+实验结果证明我们的网络可以发现到常见的对象objects
+
+
+
+
+
+
+
+
+
+
