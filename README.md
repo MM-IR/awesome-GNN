@@ -105,6 +105,38 @@ Video Thumbnail Generation就是产生video content preview预演，这个对于
 实验结果证明我们的网络可以发现到常见的对象objects
 
 
+# 8.Reasoning with Latent Structure Refinement for Document-Level Relation Extraction
+## 本文基于的工作
+文档级别的关系抽取就需要集中信息within and across多个句子@document，然后捕捉句子之间的entity之间的复杂的交互～
+
+但是有效聚合文档中的相关信息是一个很有挑战性的研究问题～
+
+## Motivation:
+1.现有的static document-level的graphs往往基于语法树，co-references 或者heuristics from the unstructured text去建模依赖～（co-reference指代，heuristic启发性的）
+
+2.但是这种类型的方法往往不能捕获rich non-local interactions@inference～
+
+这种问题就是entity和enity的关系理解需要理解几句话，并且进行相应的multi-step reasoning～
+
+## 关于我们如何创建这个node～
+![](Node_construct.jpg)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
