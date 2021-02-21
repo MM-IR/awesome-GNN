@@ -122,7 +122,51 @@ Video Thumbnail Generation就是产生video content preview预演，这个对于
 ![](Node_construct.jpg)
 
 
+# 9.Temporal Relational Modeling with Self-Supervision for Action Segmentation@AAAI2021 对video中的所有frame都进行建模的一种方法～
+## 1.Motivation:
+1.GCN在视频中关系建模有很大的意义，但是事实上对于long video sequences而言使用GCN还是很苦难的～（主要的原因就是**large number of video frames@nodes让GCN很难caoture and model temporal relations in videos**）（本文的设计就是DTGRM@Dilated Temporal Graph Reasoning Module）
 
+2.我们的方法就是可以model temporal relations and dependencies between video frames **at various time spans**.
+
+我们这里就是multi-level dilated temporal graphs where the nodes代表frames from 不同的moments in videos～（而且这里还有一个**auxiliary self-supervised task is proposed to find and correct wrong temporal relations in videos**）
+
+这里呢其实就是旨在temporally locating以及识别human action segments in long untrimmed videos～**对于action understanding而言，这是一个更加challenging的task**
+
+## Introduction@claim
+首先介绍了一下human action understanding这个任务的意义，然后介绍了什么是action segmentation，接着就是讲了一下目前action segmentation的一些工作，指出其实对于action segmentation而言，**In fact, temporal relations in various timescales (i.e., short-term and long-term timescales) are all of importance to infer action label of each frame**
+
+1.因此我们需要一个various timescales的temporal relation建模～
+
+2.那么我们就提出了一个Dilated Temporal Graph Reasoning Module**DTGRM**,同时这里为了增强这个temporal reasoning ability of the proposed model，我们还可以使用一个附属的self-supervised task去识别wrong-ordered frames in video and predict the correct action labels for them.
+
+-multi-level dilated temporal graphs on video frames去effectively model temporal relations@各种各样的timescale。然后计算两种complementary edge weights去指导temporal relational reasoning with GCNs.
+-An auxiliary self-supervised task is proposed to enforce the proposed model focus on temporal relational reasoning.@(alleviate the over-fitting)~
+
+## Action Segmentation是什么样的任务呢？
+这里的核心就是我们针对T frames的每个frame都要做一个分类，有的类别属于background class(no action)~
+
+![](overview.jpg)
+
+## 关于Dilated Temporal Graph Reasoning Module
+以前的工作一般是专注于基于action proposals或者action segments来创建graph（**这里一般是基于其他模型进行pre-computed以及mostly inaccurate**）
+-那么我们的工作就是直接用frame来进行建模，对于这个large graph的问题使用multi-level dilated temporal graphs。
+
+1.这里的就是说successive frames总是belong to the same action class and long-range temporal relations就是不同的action class之间的关系～
+
+2.但是直接在所有的frames上进行训练以及优化是十分困难的。
+
+### 创建方法
+Suppose we have a total of T frames in video and the dilated temporal graphs at k-th level就是基于dilation factor t_k来进行construct的。那么对于timestep t，它的dilated 邻居frames就是被当作是temporal graph的node了，然后vertices就是3.**（t-t_k,t,t+t_k）**
+
+我们的核心就是创建一个3张frame构成的graph，然后对于k-th level我们就是为了减轻noise problem in single constructed graph，我们计算了两个互补的edge weights@dilated temporal graph～(S-Graph + L-Graph)
+
+### S-Graph
+创建这个的核心思想就是nodes with similar action class的应该有larger edge weights。因此我们可以首先使用1个1x1的卷积层来transfer action class
+
+
+
+# 9.Temporal Relational Modeling with Self-Supervision for Action Segmentation中
+# 9.Temporal Relational Modeling with Self-Supervision for Action Segmentation
 
 
 
