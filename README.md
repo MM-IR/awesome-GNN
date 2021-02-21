@@ -163,7 +163,28 @@ Suppose we have a total of T frames in video and the dilated temporal graphs at 
 ### S-Graph
 创建这个的核心思想就是nodes with similar action class的应该有larger edge weights。因此我们可以首先使用1个1x1的卷积层来transfer action class
 
+# 10.Spatial-aware Graph Relation Network for Large-scale Object Detection
+如果正确编码high-order object relation@而并没有利用到任何的外来的knowledge。
+如果利用信息between co-occurrence以及locations of objects去进行更好的推理～
 
+## Motivation:
+1.distilling关键关系@(可能影响object识别的是非常重要的)因为treat each region单独地可能会导致performance drop～（尤其是面对很大的长尾分布，已经很多让人觉得困惑的类别）～
+
+2.现有的针对关系的方法就是比如using handcraft linguistic knowledge between classes 或者 implicitly learning a FC graph between regions~
+
+2.1. 但是手工的linguistic 知识不能单独用在每个图像上，因为semantic gap between语言和视觉上下文；
+
+2.2. visual context就是全连接图就是inefficient以及noisy（很多redundant and distracted regions/edges）
+
+这里就是top-k+高斯kernel来学习而已
+
+
+
+1.我们首先match the question and passage with gated attention-based RNN@(**question-aware passage representation**)~
+
+这里就是top-k+高斯kernel来学习而已1
+这里就是top-k+高斯kernel来学习而已.
+这里就是top-k+高斯kernel来学
 
 # 9.Temporal Relational Modeling with Self-Supervision for Action Segmentation中
 # 9.Temporal Relational Modeling with Self-Supervision for Action Segmentation
