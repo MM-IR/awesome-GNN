@@ -186,6 +186,61 @@ Suppose we have a total of T frames in video and the dilated temporal graphs at 
 这里就是top-k+高斯kernel来学习而已.
 这里就是top-k+高斯kernel来学
 
+# 11.Hierarchical Attention Based Spatial-Temporal Graph-to-Sequence Learning for Grounded Video Description
+这个任务本质上呢就是产生更加grounded and 准确的描述@link generated words到视频帧中的regions～
+## Motivation:
+1.现有的GVD方法缺乏探索结构化信息both in two aspects:
+```
+1)建模关系among the region proposals;
+2)attending them for text generation.
+```
+**就是说现有的一般独立对待每个region，要么就是使用self-attention based methods。因此，他并没有考虑到implicit 结构化信息among region proposals或者关系很冗余**
+
+**除此以外，那种显示的结构特征of objects也被忽略了，可事实上这种特征总是会被忽略～@self-attn**
+
+## More recently,图方法吸引了越来越多领域的注意力，比如image caption。
+但是视频往往很复杂，很难使用图来进行建模～
+
+而且许多frames都包含了同一物体。因此这个constructed graph 就是非常noisy的@边太多了。
+
+**因此，咱们的图网络需要根据下游任务进行相应的调整～**
+
+## 我们的方法简述
+1.首先我们就是建模spatial-temporal sequence graph@捕捉implicit correlations among region proposals~**这里的拓扑结构要么是预处理给的，要么就是without external knowledge**
+2.然后，就是我们进一步训练一个相似性的metric去创建一个semantically implicit graph去改进原有的噪声graph
+
+3.在编码阶段: 我们就是介绍了一个层次性的graph attention on the refined sequence-graph去进行描述生成（这里的套路就是首先咱们搞定相关的视频片段，然后就是视频内部的细节的regions of objects）
+
+![](SceneGraphRefine.jpg)
+
+## 1.首先关于Video Region Features 表达，global就是C3D+BiLSTM啦。
+![](FeatureEnhancement.jpg)
+
+## 2.Spatial-temporal Sequence-Graph~
+这里就是比起建模一个全连接的图，我们这里就是假设graph hold the locality～
+
+每个frame的node只可能和上一帧和下一帧来进行connection～
+
+**通过这样的操作，我们就是建模了spatial relations in single frames以及local temporal relations between frames**
+
+## 3.Graph Topology
+1.关于没有external knowledge的，我们就是可以找到feature space的相关性来做，KNN(就是对于每个node我都找p个node作为neighbor呗）
+
+2.有了external knowledge的，我们就是使用Relation Graph来做@VG，就是将KNN step使用关系分类器来进行替代～
+
+## 3.1.Refinement Procedure
+这里就是使用multi-head余弦函数对原始的graph进行了一个refinement，经试验证明，这个结果比起原有的要好～
+![](Multicos.jpg)
+
+# 12.Video Self-Stitching Graph Network for Temporal Action Localization@TODO玄学
+## Motivation:
+1.
+1.关于没有external knowledge的，我们就是可以找到feature space的相关性来做，KNN(就是对于每个node我都找p个node作为neighbor呗）.
+1.关于没有external knowledge的，我们就是可以找到feature space的相关性来做，KNN(就是对于每个node我都找p个node作为neighbor呗）
+
+## More recently,图方法吸引了越来越多领域的注意力，比如image caption。
+
+
 # 9.Temporal Relational Modeling with Self-Supervision for Action Segmentation中
 # 9.Temporal Relational Modeling with Self-Supervision for Action Segmentation
 
