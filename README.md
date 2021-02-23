@@ -1,3 +1,4 @@
+# In the following discussions, we will skip linear transformations for the sake of notational simplicity~
 # awesome-GNN
 关于图神经网络的一些工作总结
 
@@ -240,6 +241,97 @@ Suppose we have a total of T frames in video and the dilated temporal graphs at 
 
 ## More recently,图方法吸引了越来越多领域的注意力，比如image caption。
 
+# 13.Graph WaveNet for Deep Spatial-Temporal Graph Modeling
+时空图一个很重要的基础就是节点的信息会基于以前的历史信息和它的邻居的历史信息～因此我们该如何去捕捉空间和时间上的依赖性就是成了一个很大的挑战～
+## Motivation
+1.现有的方法主要是两个方向，就是GCN+RNN/CNN这种～但是这两种方法有两种缺陷
+```
+1)但是这里存在连接并没有entail节点之间相互依赖的关系，
+2)以及缺乏连接的情况～
+```
+那么这里按照推荐系统作为例子
+
+**针对情况1，就是虽然两个用户连接在一起，但是事实上他们对于products有不同的偏见～**
+
+**针对情况2，两个用户可能分享一个相似的偏见，但是他们并不是相互链接的～**
+
+情况1，人们的解决方法就是**调整dependency weight between两个相互连接的节点，但是他们失败去考虑第二种情况～**
+
+2.还有一个很大的缺陷就是目前的方法对于temporal dependencies捕捉的不是那么好。RNN有他的缺陷，CNN对于long sequences需要增加很多层～
+
+## 我们的工作
+我们提出了一个Graph WaveNet，就是解决上述的问题的。
+
+1.我们提出一个图卷积@自适应邻接矩阵可从数据中学习～
+2.这样的话这个自适应邻接矩阵就可以保存隐藏的空间依赖了～
+3.基于WaveNet，我们想到用TCN来捕捉temporal dependencies。
+4.有了因果卷积，那么我们的图网络就可以处理时空图with long-range temporal sequences 有效地～
+
+### 我们的
+
+# 14.Graph Representation Learning via Hard and Channel-wise Attention Networks
+## Motivation
+1.目前GAT这种operators消耗了太多计算资源，阻止他们在大的图上的应用了～
+2.GAO这种东西一般都是soft attention
+
+## 我们的工作
+1.我们就是特别提出一个hard graph attention layer(hGAO)，以及一个channel-wise的GAO;
+
+2.关于咱们的HGAO就是减少了计算量同时改进了结果～
+
+3.为了进一步减轻对计算资源的需要，我们就是提出cGAO来进一步注意力along channels～**这里就是channel，而不再是邻接矩阵来做，这里就是计算资源消耗减小了很多**
+
+### 我们的hGAO就是利用邻居节点来更新信息，而我们的cGAO就是同一节点的信息来交互。
+
+cGAO不用邻接矩所以计算资源消耗比GAO和hGAO要少～
+
+## 1.注意力operator
+这里我们就是使用dot-product来做，这个是最简单的(最常见的)～
+
+当然我们还可以用高斯函数和concatenation来做～
+
+# 咱们的hard attention operator,就是效果是使用概率sampling来做训练。
+这个就是使得soft attention更加流行@back-propogation training～
+**probabilistic sampling～**
+
+## GAO
+就是咱们的time complexity就是O(Cd), 这里的C就是edges的数量，d就是node embedding的维度～
+
+**在一个dense graph with C=N^2,这个时间复杂度就是O(N^2d)**
+
+**而对于稀疏图，目前的tensorflow并没有支持这个的东西～**那么我们很难取得效率～
+
+GAO消耗了太多计算资源，阻止其在大图中的应用～
+
+## 我们的hGAO详细
+![](hGAO.jpg)
+
+![](GAT复杂度.jpg)
+
+这里就是说清我们的计算消耗以及内存需要会根据graph size而呈现指数级别的增长～
+
+### 就现在而言，还没有hard attention operator on graph data to the best of our knowledge，因为目前有的操作子直接用在图上就会消耗很大资源。@概率采样
+我们使用的就是提出hGAO
+
+这里就是KNN-graph的一种变体，我们使用ranking重新计算attn。
+
+![](hGAO.jpg)
+
+# 关于cGAO地细节
+虽然我们提出的hGAO成功减少了时间复杂度，但是事实上他和GAO一样使用了相同的空间复杂度。
+
+因为我们的模型不像grid like data比如图像和文本，邻居节点的数量和顺序是固定的，但是我们的却不是。
+
+而需要额外邻接矩阵实在是太消耗内存，我们就是提出channel-wise的graph attention layer能够减少计算资源的消耗～
+
+
+# 我们提出的GAT
+这个组合比较复杂，我现在还不是很懂～
+
+
+
+4.我们就是特别提出一个hard graph attention layer(hGAO)，以及一个channel-wise的GAO;咱们
+5.
 
 # 9.Temporal Relational Modeling with Self-Supervision for Action Segmentation中
 # 9.Temporal Relational Modeling with Self-Supervision for Action Segmentation
