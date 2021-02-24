@@ -333,6 +333,107 @@ GAO消耗了太多计算资源，阻止其在大图中的应用～
 4.我们就是特别提出一个hard graph attention layer(hGAO)，以及一个channel-wise的GAO;咱们
 5.
 
+# 15.Dynamic Multiscale Graph NN for 3D skeleton-based human motion prediction
+## 1.这里的核心想法就是我们可以使用一个多尺度图去全方位理解建模internal relations of a human body for motion feature learning～
+这个多尺度的图就是适应性学习的～
+
+1.基于这个多尺度图，我们就是提出一个multiscale graph computational unit(MGCU)去抽取不同尺度的特征然后across scales进行特征的融合～
+
+2.encoder包括了a sequence of MGCUs to learn motion features~
+
+3.decoder: graph-based GRU@generate future poses~
+
+## introduction介绍
+这个任务是3D skeleton-based human motion prediction任务，核心就是给定过去的motions，我们需要预测未来的行为～
+
+1.起初的工作并没有explicit 探索body-components之间的关系；
+
+2.然后就是GNN出现，但是事实上对于functional group of body-joints用一个graph还是不足够的。
+
+而且对于关系也是仅仅学习部分节点以及它们之间的collective movement～
+
+## 我们的方法
+为了建模多尺度的body，我们这里的multiscale graph一般由两个子部分来组成:
+
+1)single-scale graphs@这个就是single scale内部的连接～
+
+2)cross-scale graphs@这个就是across two scales的连接～（这里就是缩短连接）
+
+arm node(**coarse graph中的**)应该和hand/elbow节点(**fine-scale graph**)是连接的.
+
+这个multiscale graph就是由predefined physical connections来初始化的，然后在训练过程中自适应变成motion-sensitive的～
+
+这个就是提供了新的建模思路。(overall, this multiscale representation provides a new potentiality to model body relations.)
+
+### encoder
+这个就是a cascade of multiscale graph computational units(MGCU) 每个都是和一个多尺度图相连的～
+
+组成:
+1)single-scale graph convolution block(**SS-GCB**);
+
+2)cross-scale fusion block(**CS-FB**);
+
+The multiscale graph has adaptive and trainable inbuilt topology~
+
+(这个动态的意思就是topology会从one MGCU变来变去@another)
+
+## 关于我们的任务理解
+![](3Dskeleton.jpg)
+
+序列级别的预测～
+
+## 4.Key Components 
+3 basic components:
+1)a multiscale graph computational unit(MGCU);
+
+2)a graph-based GRU(G-GRU);
+
+3)difference operator.
+
+![](scales.jpg)
+
+## 4.1. Multiscale graph计算单元～
+这里的主要的目的就是抽取并且融合特征at多尺度 on a multiscale graph～
+![](MGCU.jpg)
+
+### 4.1.1 single-scale graph convolution block(SS-GCB)
+为了抽取时空特征at each scale, 我们提出一个SS-GCB
+
+我们这里就是一个可以训练的adjacency matrix～由physical connections初始化的～
+
+SS-GCB主要由两个单元组成
+
+1）spatial graph convolution;
+这是GCN(+skip connection).
+
+2) temporal convolution;
+一个卷积层来学习temporal patterns。
+
+每个blcok中的adjacency是自己学习的，然后就是训练的时候是每个邻接矩阵单独训练，然后就是时间卷=积on the feature sequences～
+
+**The single-scale graphs in different SS-GCBs are dynamic, showing flexible relations.**
+
+**Features extracted at various scales have different dimensionalities and reflect information with different receptive fields~**
+
+### 4.1.2 Cross-scale fusion block(CS-FB)
+这个就是使用一个cross-scale graph去convert features from one scale to another～
+
+这里的理解就是某个图的节点可以指导第二个的feature learning，比如arm in the low level part可以指导hand node in the body-joint scale～
+
+![](CrossGraph.jpg)
+
+
+
+
+
+这个multiscale graph就是由predefined physical connections来初始化的，然后在训练过程中自适应变成motion-sensitive的～就是
+这个multiscale graph就是由predefined physical connections来初始化的，然后在训练过程中自适应变成motion-sensitive
+
+
+
+
+
+
 # 9.Temporal Relational Modeling with Self-Supervision for Action Segmentation中
 # 9.Temporal Relational Modeling with Self-Supervision for Action Segmentation
 
