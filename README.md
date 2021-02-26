@@ -422,6 +422,19 @@ SS-GCB主要由两个单元组成
 
 ![](CrossGraph.jpg)
 
+# 16.Graph Convolutional Label Noise Cleaner: Train a Plug-and_play Action Classifier for Anomaly Detection
+## Framework
+![](Snippet.jpg)
+
+为了衡量这个edge，我们就是使用kernel函数@拉普拉斯kernel来计算edge weight～
+![](FeatSim.jpg)
+
+这个就是针对feature similarity Graph Module
+
+![](TemCon.jpg)
+这个就是针对Temporal Consistency Graph Module
+
+**lalala**
 
 
 
