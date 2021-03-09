@@ -438,6 +438,25 @@ SS-GCB主要由两个单元组成
 
 
 
+# 17.Disentangling and Unifying Graph Convolutions for Skeleton-Based Action Recognition
+## Motivation
+1.时空图在基于骨骼的行为识别中还是广泛使用的。尤其为了捕捉鲁棒的移动patterns from these graphs，long-range长期的以及多尺度multi-scale context aggregation + 时空依赖建模是一个powerful feature extractor的关键组成部分吧。
+
+## Introduction介绍
+1.就是这个free of environment noise，那么就是可以专注于那些robust features of the action～
+
+2.早期都是独立的一个descriptor进行描述。
+
+3.后期都是考虑到了human joints潜在的关系，这里就是一个时空图，disjoint and isomorphic skeleton graphs at 不同的时间步。
+
+为了抽取足够鲁棒的feature，我们必须beyond the local joint connectivity～
+
+**抽取multi-scale 结构化特征以及长范围的依赖，因为节点即使离开的很远也可能拥有比较强的相关性**
+
+### 许多现有的方法都是通过表现图卷积with higher-order polynomials of the skeleton adjacency matrix。
+高阶多项式of骨骼邻接矩阵。
+
+![](G3D.jpg)
 
 这个multiscale graph就是由predefined physical connections来初始化的，然后在训练过程中自适应变成motion-sensitive的～就是
 这个multiscale graph就是由predefined physical connections来初始化的，然后在训练过程中自适应变成motion-sensitive
