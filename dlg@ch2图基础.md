@@ -134,6 +134,19 @@ lambda一个大于1，一个小于1.
 
 列向量就是单位特征向量，并且相互正交。
 
+## eigenvector centrality是怎么用的呢。其实很简单
+
+就是这样的一个建模方式，只不过我们需要的是eignvector中的所有entry都是positive的，所以我们选择了这种处理方式。
+
+![](EC.jpg)
+
+因为需要每个重要性大于0，所以我们选择最大的eigenvalue对应的eigenvector。
+
+Pagerank就是一个典型的思想。
+
+### Katz Centrality
+
+
 
 
 # 2.6 Complex Graphs
