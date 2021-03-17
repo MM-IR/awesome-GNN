@@ -508,7 +508,7 @@ Semantic context
 
 这里主要就是涉及一个visual-to-semantic，以及最后的semantic-to-visual。。。
 
-![](Stgraph.jpg)
+![](stgraph_next.jpg)
 
 
 
