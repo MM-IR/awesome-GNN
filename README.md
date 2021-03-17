@@ -458,8 +458,59 @@ SS-GCB主要由两个单元组成
 
 ![](G3D.jpg)
 
-这个multiscale graph就是由predefined physical connections来初始化的，然后在训练过程中自适应变成motion-sensitive的～就是
-这个multiscale graph就是由predefined physical connections来初始化的，然后在训练过程中自适应变成motion-sensitive
+
+
+# 18.Representation Learning on Visual-Symbolic Graphs for Video Understanding
+## Motivation
+1.视频中有很多的object之间的交互以及很多共现的activities以及object classes；
+
+2.为了捕捉这个context@visual+semantic。我们这里就是使用了两个图:
+
+1)attributed spatio-temporal visual graph@(节点就是actors/objects，然后边就是encode不同类型的interactions)
+
+2)a symbolic graph that models semantic relationships. 语义关系。
+
+
+我们的模型就是超过了goes beyond current approaches@**假设节点和边都是same type，然后operate on graphs with fixed edge weights，然后并不使用一个symbolic graph～**
+
+## 而我们的算法就是:
+
+1)attn-based message functions for 不同的节点和边types。
+
+2)使用视觉边特征;
+
+3)集成visual evidence with label relationships;
+
+4)performs global reasoning in the semantic space.
+
+## 现有的视频st-graph有四种limitations
+1.visual st-graph是异质图thatyou不同的节点类型比如actor/objects，然后不同的边类型比如spatial和temporal的。而现在的仅仅使用GNN假设相同的type，或者分离的GNN来做。
+
+2.现在的很多都是dense graph，可是事实上只有少部分edge是有意义的。
+
+3.现有的方法并没有incorporate edge features，比如几何关系。
+
+4.虽然现有的方法都在建模local visual context，但是没有在一个global video level进行reason或者探索semantic label relationships。
+
+## 技术细节简要概括
+vsiaul stgraph
+1.就是learnable message functions@each edgetype**这里就是不同的interaction我们采取不同的attention**
+
+这里就是actor node会和上一个frame的actor node还有当前的frame中的object分开处理。
+
+2.这里就是每个节点都有各自的type，还有每个边也有各自的type。node type比如actor/object，然后edge type比如object-to-actor spatial，temporal等等。使用appearance feature和spatial location当作初始化的feature。
+
+然后自己的图上的传播机制就是使用类似GAT的操作进行传播，不过这里就是将边考虑进来修改版。**测试出来的结果比单纯使用node或者edge来更新feat结果要好～**
+
+Semantic context
+
+1.Symbolic graph这里就是label embedding+边的semantic attribute，比如scalar weight---共现等等关系。
+
+这里主要就是涉及一个visual-to-semantic，以及最后的semantic-to-visual。。。
+
+![](Stgraph.jpg)
+
+
 
 
 
