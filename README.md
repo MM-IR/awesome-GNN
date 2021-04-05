@@ -515,6 +515,71 @@ Semantic context
 # 19.Temporal Dynamic Graph LSTM for Action-driven Video Object Detection
 ## Motivation
 
+# 20.Spatial-Temporal Graph Transformer for Multiple Object Tracking
+## Motivation:@Tracking multiple objects in videos relies on modeling the spatial-temporal interactions of the objects~
+1.本文中，我们提出的解决方案就是Spatial-Temporal Graph Transformer**STGT**,利用图transformers去有效建模objects之间的关系建模；interactions
+
+### 关于咱们的Transformer的细节
+1.就是有效建模很大量的objects之间的trajectory作为sparse weighted graphs;
+
+2.创建一个spatial graph transformer encoder layer, a temporal transformer encoder layer, and a spatial grpah transformer decoder layer based on这些图。
+
+## 关于咱们的STGT的优势
+1.不仅是transformer更加计算上效率。
+
+2.而且获得了更好的tracking精度
+
+**为了进一步改进tracking速度和精度，我们就是提出一个cascade association framework->处理low-score detections以及long-term occlusions**
+## 1.Introduction@****@讲述规则主要是时空关系建模
+这个多个object在视频中的tracking是一个非常困难的任务，我们最常见的方法就是tracking-by-detection策略。
+
+1）就是target candidates就是通过目标检测器获得的，然后相互连接起来拼接成target trackrories。
+
+**我们的工作就是想要robust target association，就是成功建模temporal history/appearance of the targets/以及他们对应的spatial-temporal relationships**
+
+## 传统的时空关系都是@缺点motivation
+1.都是手工设计的association rules。social interaction models或者spatial exclusion models～
+
+2.现有的深度学习就是探索spatial-temporal relationship
+
+3.尤其是transformer对于探索temporal dependency很潮流。有不少文章尝试使用transformer中建模spatial-transformer relationship可能很有效。**但是tracking表现of transformer-based tracker就不是SOTA for several reasons～**。
+
+1)视频中包含很多objects;**因为transformer并没有考虑进spatial-temporal structure of the objects into consideration～**
+
+2)这个需要许多计算资源以及数据to learn transformers去建模长期temporal dependencies～
+
+3)DETR-based object detector 仍然不是SOTA for MOT.
+
+**通过将STGT合并进cascade association framework,我们就不需要learn to associate 大量的low-score detections或者长期temporal relationships，这个还可以combine with其他的不同的目标检测器或者视觉特征抽取subnetworks**
+<img width="968" alt="image" src="https://user-images.githubusercontent.com/40928887/113530435-a1911500-95f8-11eb-93fa-9f406c71b872.png">
+
+## Related works
+1.关于MOT
+
+很多方法就是tracking-by-detection框架，然后这个matching不同frame的object的方法一般是:
+
+```
+1.Hungarian algorithm;
+
+2.network flow;
+
+3.multiple hypotheses tracking.
+```
+
+**许多方法解决这个association问题通过搭建graphs of object detections across 所有帧～**:
+```
+1.multi-cuts;
+
+2.lifting edges.
+```
+
+*但是这些方法都是计算上很复杂的global optimization on graphs，就是限制他们在online tracking上的表现力。
+
+
+```
+
+1.本文中，我们提出的解决方案就是Spatial-Temporal Graph Transformer**STGT**,利用图transformers去有效建模objects之间的关系建模；interactions.
+1.本文中，我们提出的解决方案就是Spatial-Temporal Graph Transformer**STGT**,利用图transformers去有效建模objects之间的关系建模；interacti
 
 
 
