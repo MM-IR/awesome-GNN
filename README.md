@@ -576,18 +576,6 @@ Semantic context
 *但是这些方法都是计算上很复杂的global optimization on graphs，就是限制他们在online tracking上的表现力。
 
 
-```
-
-1.本文中，我们提出的解决方案就是Spatial-Temporal Graph Transformer**STGT**,利用图transformers去有效建模objects之间的关系建模；interactions.
-1.本文中，我们提出的解决方案就是Spatial-Temporal Graph Transformer**STGT**,利用图transformers去有效建模objects之间的关系建模；interacti
-
-
-
-
-
-# 9.Temporal Relational Modeling with Self-Supervision for Action Segmentation中
-# 9.Temporal Relational Modeling with Self-Supervision for Action Segmentation
-
 
 
 
