@@ -576,6 +576,55 @@ Semantic context
 *但是这些方法都是计算上很复杂的global optimization on graphs，就是限制他们在online tracking上的表现力。
 
 
+# 21. Bridge to answer2Videoqa
+1.这里就是一个termed Bridge to Answer,这里就是利用合适的graph interactions of异质跨模态图。
+
+2.这篇文章主要说那些relation的工作做的不是那么好。
+
+>以前的那些工作不管是怎么做这个relation，他们都是rely on learning positional relationships，而不是in-depth的semantic meaning，这个就是使得capture 复杂的appearance-motion或者visual-question relations difficult.
+
+## 跨模态关系建模有很多方法
+1.global question表达去帮助学习一个question-specific visual representation.@memorynetwork@**coarse relations而不是那个video-words relations**
+
+2.local: 这里就是一系列的word-level features呢就是来当作是sequential数据in the local方法。这个方案就是利用word表达去学习这个visual attention或者说coattention。然后融合这个**视觉以及word的表达。**
+
+>local的话则是联系visual以及word信息基于共现假设。而不是compositional semantics of question。
+
+<img width="441" alt="image" src="https://user-images.githubusercontent.com/40928887/123797951-5053a180-d919-11eb-904e-0417cf6c3917.png">
+
+**这种一般单纯使用word的话就是往往倾向于单纯使用woman来定位，那么就会定位到所有的woman。**
+
+## 为了解决上面的问题
+1.这里就是尝试建立grammatical dependencies between sentence words。
+
+2.先前的工作关于structural representation of videoqa的则是没有进行这样的工作，那么咱们这里under-explored的话就是要做工作啦。
+<img width="905" alt="image" src="https://user-images.githubusercontent.com/40928887/123799009-56964d80-d91a-11eb-91d5-e0d652bc6568.png">
+
+## 咱们方法
+### 1.就是视觉图的构建
+1.这里就是通过采用appearance feat和clip feat作为对应的node。
+>然后这里的weight matrix则是通过node feat之间的相似性进行计算。
+
+### 2.关于文本feat的处理
+1.这个就是BiGRU+GloVe。
+
+2.关于compositional semantic structure of questions，我们这里就是Stanford CoreNLP来识别这个semantic dependency。
+然后这里的边也是相似性计算。
+<img width="424" alt="image" src="https://user-images.githubusercontent.com/40928887/123799400-c4db1000-d91a-11eb-8e5e-278f0e2d6db3.png">
+
+E。A就行。（相似性结合邻居）
+<img width="428" alt="image" src="https://user-images.githubusercontent.com/40928887/123799513-e20fde80-d91a-11eb-9d06-72c068b97135.png">
+
+### 3.Q2V interactions
+>这个模型的核心就是学习question-conditioned visual表达通过联系这个question node和visual node，然后传播这个question信息在visual上通过GCN。
+>
+
+
+
+
+
+
+
 
 
 
